@@ -11,6 +11,6 @@ router.use("/course", require("./course/index"));
 router.use("/place", require("./place/index"));
 router.use("/mypage", require("./mypage/index"));
 */
-//router.use("/set", require("./set/index"));
+router.use("/set", require("./set/index"));
 
 module.exports = router;
