@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 
-//router.use("/auth", require("./auth/index"));
+router.use("/auth", require("./auth/index"));
 /*
 router.use("/main", require("./main/index"));
 router.use("/review", require("./review/index"));
