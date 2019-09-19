@@ -8,6 +8,15 @@ const statusCode = require('../../module/utils/statusCode');
 const resMessage = require('../../module/utils/responseMessage')
 const db = require('../../module/pool');
 
+/*
+회원가입
+METHOD       : POST
+URL          : /auth/signup
+BODY         : email = 회원가입 이메일
+               password = 회원가입 패스워드
+               nickname =  회원가입 닉네임
+*/
+
 router.post('/', async (req, res) => {
     const selectIdQuery = 'SELECT * FROM user WHERE email = ?'
     const selectIdResult = await db.queryParam_Parse(selectIdQuery, req.body.email);
