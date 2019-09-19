@@ -5,6 +5,21 @@ module.exports = {
 
 //////////////////////////////////////////// 추가
 
+    /* AUTH */
+    SIGNUP_FAIL : "회원가입 실패",
+    SIGNUP_SUCCESS : "회원가입 성공",
+
+    SIGNIN_FAIL : "로그인 실패",
+    SIGNIN_SUCCESS : "로그인 성공",
+
+    /* COURSE */
+    ALREADY_LIKE_COURSE: "이미 좋아요 된 코스",
+    FAIL_LIKE_COURSE: "코스 좋아요 실패",
+    SUCCESS_LIKE_COURSE: "코스 좋아요 성공",
+
+    ALREADY_UNLIKE_COURSE : "이미 좋아요 취소 된 코스",
+    FAIL_UNLIKE_COURSE: "코스 좋아요 취소 실패",
+    SUCCESS_UNLIKE_COURSE : "코스 좋아요 취소 성공",
 
     /* SET */
     SUCCESS_USER_LIST: "회원정보 조회 성공",

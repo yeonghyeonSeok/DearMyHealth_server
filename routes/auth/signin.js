@@ -10,6 +10,14 @@ const db = require('../../module/pool');
 
 const jwtUtils = require('../../module/jwt');
 
+/*
+로그인
+METHOD       : POST
+URL          : /auth/signin
+BODY         : email = 사용자 이메일
+               password = 사용자 패스워드
+*/
+
 router.post('/', async (req, res) => {
     const selectUserQuery = 'SELECT * FROM user WHERE email = ?'
     const selectUserResult = await db.queryParam_Parse(selectUserQuery, req.body.email);
