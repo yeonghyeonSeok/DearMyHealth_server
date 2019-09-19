@@ -21,6 +21,15 @@ module.exports = {
     FAIL_UNLIKE_COURSE: "코스 좋아요 취소 실패",
     SUCCESS_UNLIKE_COURSE : "코스 좋아요 취소 성공",
 
+    /* PLACE */
+    ALREADY_LIKE_PLACE: "이미 좋아요 된 장소",
+    FAIL_LIKE_PLACE: "장소 좋아요 실패",
+    SUCCESS_LIKE_PLACE: "장소 좋아요 성공",
+
+    ALREADY_UNLIKE_PLACE : "이미 좋아요 취소 된 장소",
+    FAIL_UNLIKE_PLACE: "장소 좋아요 취소 실패",
+    SUCCESS_UNLIKE_PLACE : "장소 좋아요 취소 성공",
+
     /* SET */
     SUCCESS_USER_LIST: "회원정보 조회 성공",
     SUCCESS_UPDATE_PASSWORD: "비밀번호 수정 성공",
