@@ -20,7 +20,7 @@ BODY         : email = 사용자 이메일
 
 router.post('/', async (req, res) => {
     const selectUserQuery = 'SELECT * FROM user WHERE email = ?'
-    const selectUserResult = await db.queryParam_Parse(selectUserQuery, req.body.email);
+    const selectUserResult = await db.queryParam_Parse(selectUserQuery, [req.body.email]);
     console.log(selectUserResult[0])//유저 정보
 
     if (selectUserResult[0] == null) {//id가 존재하지 않으면
