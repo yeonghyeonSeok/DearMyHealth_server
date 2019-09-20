@@ -29,7 +29,9 @@ module.exports = {
     /* PLACE */
     PLACE_SELECT_FAIL : "장소 정보 조회 실패",
     PLACE_SELECT_SUCCESS : "장소 정보 조회 성공",
-    
+
+    PLACE_SEARCH_SUCCESS : "장소 검색 성공",
+
     ALREADY_EXIST_PLACE : "이미 등록된 장소",
     PLACE_ENROLL_SUCCESS : "장소 등록 성공",
 

@@ -9,94 +9,59 @@ const db = require('../../module/pool');
 /*
 장소 검색
 METHOD       : GET
-URL          : /place/search/:keyword
+URL          : /place/search?placeName=
 PARAMETER    : keyword = 검색어
 */
 
-router.get('/:keyword', async(req, res, next) => {
+router.get('/', async(req, res, next) => {
 
-    const keyword = req.query.keyword;
+    const keyword = req.query.placeName;
+    console.log(keyword);
 
-    const QUERY1 = 'SELECT * FROM place WHERE pName LIKE "%' + keyword + '%"';
+    const searchPlaceQuery = 'SELECT * FROM place WHERE pName LIKE "%'+keyword+'%"';
+    const searchPlaceResult = await db.queryParam_None(searchPlaceQuery);
 
-    try {
-        let result = new Array();
-        let result1 = await db.queryParam_None(QUERY1);
-        let result2 = await db.queryParam_None(QUERY2);
-        let result3 = await db.queryParam_None(QUERY3);
+    console.log(searchPlaceResult);
+    console.log(searchPlaceResult.length);
 
-
-        if(result1.length > 0) {
-            console.log(result1);
-            result.push({
-                "코스 타이틀에 키워드 포함" : result1
-            });
-        }
-
-        if(result2.length > 0) {
-            console.log(result2);
-            let tag = new Array();
-            const searchTagQuery = 'SELECT courseIdx FROM course_Tag Where tagIdx = ?';
-
-            for(i = 0; i < result2.length; i++) {
-                const searchTagResult = await db.queryParam_Parse(searchTagQuery, result2[i]);
-                console.log(searchTagResult);
-                if(searchTagResult.length > 0) {
-                    tag.push(searchTagResult);
-                }
-            }
-
-            console.log(tag);
-
-            if(tag.length > 0) {
-                const courseTagQuery = 'SELECT * FROM course Where courseIdx = ?';
-
-                for(i = 0; i < tag.length; i++) {
-                    const courseTagResult = await db.queryParam_Parse(courseTagQuery, tag[i]);
-                    console.log(courseTagResult);
-                    if(courseTagResult.length > 0) {
-                        result.push({
-                            "코스 해시태그에 키워드 포함" : courseTagResult //이렇게 보내도 상관없는지 아니면 "코스 해시태그에 키워드 포함 {코스1, 코스2, ... }" 이렇게 보내야 하는지
-                        });
-                    }
-                }
-            }
-        }
-
-        if(result3.length > 0) {
-            console.log(result3);
-            let place = new Array();
-            const searchPlaceQuery = 'SELECT courseIdx FROM course_Places Where placeIdx = ?';
+    if(searchPlaceResult[0] == null) {
+        return res.status(200).send(defaultRes.successFalse(statusCode.OK, "일치하는 장소 없음")); 
+    } else {
+        const resData = new Array();
+        for(i = 0; i < searchPlaceResult.length; i++) {
+            const inputPlaceIdx = searchPlaceResult[i].placeIdx;
+            resData[i]  = {
+                placeName : "",
+                description : "",
+                place_thumbnail : "", // INT
+                place_like : "",   // INT
+                address : "",   // INT
+                number : "",
+                fee : "",
+                businessHour : "",
+                location : ""
+            };
+    
+            resData[i].placeName = searchPlaceResult[i].pName;
+            resData[i].description = searchPlaceResult[i].pDescription;
+            resData[i].place_thumbnail = searchPlaceResult[i].place_thumbnail;
+            resData[i].place_like = searchPlaceResult[i].place_like;
+    
+            const selectDetailQuery = 'SELECT pAddress, pNumber, pFee, pHour FROM place_Detail WHERE placeIdx = ?';
+            const selectDetailResult = await db.queryParam_Parse(selectDetailQuery, [inputPlaceIdx]);
             
-            for(i = 0; i<result3.length; i++) {
-                const searchPlaceResult = await db.queryParam_Parse(searchPlaceQuery, result3[i]);
-                console.log(searchPlaceResult);
-                if(searchPlaceResult.length > 0) {
-                    place.push(searchPlaceResult);
-                }
-            }
-
-            console.log(place);
-            
-            if(place.length > 0) {
-                const coursePlaceQuery = 'SELECT * FROM course Where courseIdx = ?';
-
-                for(i = 0; i < place.length; i++) {
-                    const coursePlaceResult = await db.queryParam_Parse(coursePlaceQuery, place[i]);
-                    console.log(corsePlaceResult);
-                    if(coursePlaceResult.length > 0) {
-                        result.push({
-                            "코스 장소에 키워드 포함" : coursePlaceResult
-                        });
-                    }
-                }
-            }
+            resData[i].address = selectDetailResult[0].pAddress;
+            resData[i].number = selectDetailResult[0].pNumber;
+            resData[i].fee = selectDetailResult[0].pFee;
+            resData[i].businessHour = selectDetailResult[0].pHour;
+    
+            const selectLocationQuery = 'SELECT latitude, longitude FROM location WHERE placeIdx = ?';
+            const selectLocationResult = await db.queryParam_Parse(selectLocationQuery, [inputPlaceIdx]);
+    
+            resData[i].location = selectLocationResult[0];
         }
-        console.log(result);
-        return res.status(200).send(defaultRes.successTrue(statusCode.OK, "검색 성공", result));
 
-    } catch (err) {
-        return res.status(200).send(defaultRes.successFalse(statusCode.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR"));
+        return res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.PLACE_SEARCH_SUCCESS, resData));
     }
 });
 
