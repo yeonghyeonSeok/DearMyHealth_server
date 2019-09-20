@@ -20,11 +20,8 @@ BODY         : email = 회원가입 이메일
 router.post('/', async (req, res) => {
     const selectIdQuery = 'SELECT * FROM user WHERE email = ?'
     const selectIdResult = await db.queryParam_Parse(selectIdQuery, [req.body.email]);
-    console.log(req.body.email);
-    const signupQuery = 'INSERT INTO user (email, password, nickname, pickPlaceCount, reviewCount, editCourseCount, salt) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const signupQuery = 'INSERT INTO user (email, nickname, password, salt, pickPlaceCount, reviewCount, editCourseCount) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
-    console.log("1");
-    console.log(selectIdResult);
     if (selectIdResult[0] == null) {
         console.log("일치 없음");
         const buf = await crypto.randomBytes(64);
@@ -32,16 +29,15 @@ router.post('/', async (req, res) => {
         console.log(req.body.password);
         const hashedPw = await crypto.pbkdf2(req.body.password.toString(), salt, 1000, 32, 'SHA512');
         const signupResult = await db.queryParam_Arr(signupQuery, [req.body.email, req.body.nickname, hashedPw.toString('base64'), salt, 0, 0, 0]);
-        console.log(2);
-        console.log(signupResult);
+
         if (!signupResult) {
-            res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.SIGNUP_FAIL));
+            res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.SIGNUP_FAIL));
         } else { //쿼리문이 성공했을 때
             res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SIGNUP_SUCCESS));
         }
     } else {// 이미존재
         console.log("이미 존재");
-        res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.DUPLICATED_ID_FAIL));
+        res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.ALREADY_EXIST_USER));
     }
 
 });

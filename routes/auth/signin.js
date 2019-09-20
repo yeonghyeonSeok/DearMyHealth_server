@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
             const refreshTokenUpdateQuery = "UPDATE user SET refreshToken = ? WHERE email= ?";
             const refreshTokenUpdateResult = await db.queryParam_Parse(refreshTokenUpdateQuery, [refreshToken, req.body.email]);
             if (!refreshTokenUpdateResult) {
-                res.status(200).send(defaultRes.successTrue(statusCode.DB_ERROR, "refreshtoken DB등록 오류 "));
+                res.status(200).send(defaultRes.successFalse(statusCode.OK, "refreshtoken DB등록 오류 "));
             } else {
                 res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SIGNIN_SUCCESS, tokens));
             }
