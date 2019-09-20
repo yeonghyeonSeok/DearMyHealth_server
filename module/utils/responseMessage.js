@@ -18,23 +18,23 @@ module.exports = {
     SUCCESS_FIND_PASSWORD: "비밀번호 찾기 성공",
 
     /* COURSE */
-    ALREADY_LIKE_COURSE: "이미 좋아요 된 코스",
+    ALREADY_LIKE_COURSE: "이미 좋아요 상태인 코스",
     FAIL_LIKE_COURSE: "코스 좋아요 실패",
     SUCCESS_LIKE_COURSE: "코스 좋아요 성공",
 
-    ALREADY_UNLIKE_COURSE : "이미 좋아요 취소 된 코스",
+    ALREADY_UNLIKE_COURSE : "이미 좋아요 취소 상태인 코스",
     FAIL_UNLIKE_COURSE: "코스 좋아요 취소 실패",
     SUCCESS_UNLIKE_COURSE : "코스 좋아요 취소 성공",
 
     /* PLACE */
     ALREADY_EXIST_PLACE : "이미 등록된 장소",
     PLACE_ENROLL_SUCCESS : "장소 등록 성공",
-    
-    ALREADY_LIKE_PLACE: "이미 좋아요 된 장소",
+
+    ALREADY_LIKE_PLACE: "이미 좋아요 상태인 장소",
     FAIL_LIKE_PLACE: "장소 좋아요 실패",
     SUCCESS_LIKE_PLACE: "장소 좋아요 성공",
 
-    ALREADY_UNLIKE_PLACE : "이미 좋아요 취소 된 장소",
+    ALREADY_UNLIKE_PLACE : "이미 좋아요 취소 상태인 장소",
     FAIL_UNLIKE_PLACE: "장소 좋아요 취소 실패",
     SUCCESS_UNLIKE_PLACE : "장소 좋아요 취소 성공",
 
