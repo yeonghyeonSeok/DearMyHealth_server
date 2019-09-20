@@ -27,6 +27,9 @@ module.exports = {
     SUCCESS_UNLIKE_COURSE : "코스 좋아요 취소 성공",
 
     /* PLACE */
+    ALREADY_EXIST_PLACE : "이미 등록된 장소",
+    PLACE_ENROLL_SUCCESS : "장소 등록 성공",
+    
     ALREADY_LIKE_PLACE: "이미 좋아요 된 장소",
     FAIL_LIKE_PLACE: "장소 좋아요 실패",
     SUCCESS_LIKE_PLACE: "장소 좋아요 성공",
