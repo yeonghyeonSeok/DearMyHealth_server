@@ -13,7 +13,7 @@ URL          : /main/search/:keyword
 PARAMETER    : keyword = 검색어
 */
 
-router.get('/', async(req, res, next) => {
+router.get('/:keyword', async(req, res, next) => {
 
     const keyword = req.query.keyword;
 
