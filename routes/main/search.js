@@ -95,10 +95,10 @@ router.get('/:keyword', async(req, res, next) => {
             }
         }
         console.log(result);
-        return res.status(200).send(responseUtil.successTrue(returnCode.OK, "검색 성공", result));
+        return res.status(200).send(defaultRes.successTrue(statusCode.OK, "검색 성공", result));
 
     } catch (err) {
-        return res.status(200).send(responseUtil.successFalse(returnCode.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR"));
+        return res.status(200).send(defaultRes.successFalse(statusCode.INTERNAL_SERVER_ERROR, "INTERNAL_SERVER_ERROR"));
     }
 });
 

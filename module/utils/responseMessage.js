@@ -9,6 +9,7 @@ module.exports = {
     SIGNUP_FAIL : "회원가입 실패",
     SIGNUP_SUCCESS : "회원가입 성공",
 
+    NOT_CORRECT_USERINFO : "일치하는 사용자가 없습니다",
     SIGNIN_FAIL : "로그인 실패",
     SIGNIN_SUCCESS : "로그인 성공",
 
