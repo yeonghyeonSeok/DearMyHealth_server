@@ -1,12 +1,11 @@
 // 각종 라우팅을 연결하는 코드
 const express = require('express');
-const router = express.Router({mergeParams: true})
+const router = express.Router();
 
-const resUtil = require('../../module/responseUtil')
-const resCode = require('../../model/returnCode')
-const resMessage = require('../../../config/returnMessage')
-
-const pool = require('../../module/pool');
+const defaultRes = require('../../module/utils/utils');
+const statusCode = require('../../module/utils/statusCode');
+const resMessage = require('../../module/utils/responseMessage')
+const db = require('../../module/pool');
 
 /*
 장소 좋아요
