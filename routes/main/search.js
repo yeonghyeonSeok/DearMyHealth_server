@@ -6,8 +6,14 @@ const statusCode = require('../../module/utils/statusCode');
 const resMessage = require('../../module/utils/responseMessage')
 const db = require('../../module/pool');
 
+/*
+메인 검색
+METHOD       : GET
+URL          : /main/search/:keyword
+PARAMETER    : keyword = 검색어
+*/
 
-router.get('/', async(req, res, next) => {
+router.get('/:keyword', async(req, res, next) => {
 
     const keyword = req.query.keyword;
 
