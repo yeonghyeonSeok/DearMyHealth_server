@@ -21,7 +21,7 @@ router.get('/:email', async (req, res) => { //
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));    // DB 에러
     }else {
         if(pwdSelectResult[0] == null){   // email이 존재하지 않는 경우, result에는 데이터가 들어가지 않는다.
-            res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.NOT_CORRECT_INFO));   // 올바르지 않은 정보 입니다
+            res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_CORRECT_INFO));   // 올바르지 않은 정보 입니다
             }else{    // email이 존재하는 경우, result에는 데이터가 존재한다.
                     /* 이메일로 비밀번호를 전송 
                     원래 있는 user의 비밀번호를 랜덤 값으로 update
@@ -52,10 +52,10 @@ router.get('/:email', async (req, res) => { //
                     });
                 
                     let mailOption = {
-                        from: 'hhyyeon0214@gmail.com',  // 보내는 사람 이메일
+                        from: 'hhyyeon0214@gmail.com',  // 보내는 사람 이메일 -> 테스트용으로 사용
                         to: pwdSelectResult[0].email,   // 받는 사람의 이메일 = 유저의 이메일로 비밀번호 전송
-                        subject: '[PICK+]'+pwdSelectResult[0].nickname+'님의 임시 비밀번호 입니다',
-                        text: pwdSelectResult[0].nickname+'님의 임시 비밀번호는   '+ newRandomPwd + '     입니다. 로그인 후 새로운 비밀번호로 수정해주세요.'
+                        subject: '[PICK+] '+pwdSelectResult[0].nickname+'님의 임시 비밀번호 입니다.',
+                        text: pwdSelectResult[0].nickname+'님의 임시 비밀번호는 '+newRandomPwd+ '입니다. 로그인 후 새로운 비밀번호로 수정해주세요.'
                     };
                 
                     transporter.sendMail(mailOption, function (err, info) {
