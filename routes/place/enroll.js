@@ -38,16 +38,16 @@ router.post('/', upload.single('place_thumbnail'), async (req, res) => {
         const insertLocationQuery = 'INSERT INTO location (placeIdx, latitude, longitude) VALUES (?, ?, ?)';
         const insertLocationResult = await db.queryParam_Arr(insertLocationQuery, [inputPlaceIdx, req.body.latitude, req.body.longitude]);
 
-        const insertDetailQuery = 'INSERT INTO place_Detail (placeIdx, pAddress) VALUES (?, ?)';
+        const insertDetailQuery = 'INSERT INTO place_detail (placeIdx, pAddress) VALUES (?, ?)';
         const insertDetailResult = await db.queryParam_Arr(insertDetailQuery, [inputPlaceIdx, req.body.address]);
 
         if(req.body.number != null) {
-            const updateNumberQuery = 'UPDATE place_Detail SET pNumber = ? WHERE placeIdx = ?';
+            const updateNumberQuery = 'UPDATE place_detail SET pNumber = ? WHERE placeIdx = ?';
             const updateNumberResult = await db.queryParam_Arr(updateNumberQuery, [req.body.number, inputPlaceIdx]);
         }
 
         if(req.body.fee != null) {
-            const updateFeeQuery = 'UPDATE place_Detail SET pFee = ? WHERE placeIdx = ?';
+            const updateFeeQuery = 'UPDATE place_detail SET pFee = ? WHERE placeIdx = ?';
             const updateFeeResult = await db.queryParam_Arr(updateFeeQuery, [req.body.fee, inputPlaceIdx]);
         }
 
