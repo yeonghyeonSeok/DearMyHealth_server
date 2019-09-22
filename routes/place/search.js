@@ -10,15 +10,15 @@ const db = require('../../module/pool');
 장소 검색
 METHOD       : GET
 URL          : /place/search?placeName=
-PARAMETER    : placeName = 장소이름 
+PARAMETER    : placeName = 장소 이름
 */
 
 router.get('/', async(req, res, next) => {
 
-    const keyword = req.query.tagName;
+    const keyword = req.query.placeName;
     console.log(keyword);
 
-    const searchPlaceQuery = 'SELECT * FROM tag WHERE pName LIKE "%'+keyword+'%"';
+    const searchPlaceQuery = 'SELECT * FROM place WHERE pName LIKE "%'+keyword+'%"';
     const searchPlaceResult = await db.queryParam_None(searchPlaceQuery);
 
     console.log(searchPlaceResult);
@@ -47,7 +47,7 @@ router.get('/', async(req, res, next) => {
             resData[i].place_thumbnail = searchPlaceResult[i].place_thumbnail;
             resData[i].place_like = searchPlaceResult[i].place_like;
     
-            const selectDetailQuery = 'SELECT pAddress, pNumber, pFee, pHour FROM place_Detail WHERE placeIdx = ?';
+            const selectDetailQuery = 'SELECT pAddress, pNumber, pFee, pHour FROM place_detail WHERE placeIdx = ?';
             const selectDetailResult = await db.queryParam_Parse(selectDetailQuery, [inputPlaceIdx]);
             
             resData[i].address = selectDetailResult[0].pAddress;

@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "aws-sdk": "^2.531.0",
+    "aws-sdk": "^2.532.0",
     "cookie-parser": "~1.4.4",
     "crypto-promise": "^2.1.0",
     "debug": "~2.6.9",
@@ -22,6 +22,7 @@
     "mysql": "^2.17.1",
     "nodemailer": "^6.3.0",
     "pool": "^0.4.1",
-    "promise-mysql": "^3.3.2"
+    "promise-mysql": "^3.3.2",
+    "rand-token": "^0.4.0"
   }
 }

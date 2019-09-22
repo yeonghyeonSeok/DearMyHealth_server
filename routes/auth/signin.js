@@ -20,7 +20,7 @@ BODY         : email = 사용자 이메일
 
 router.post('/', async (req, res) => {
     const selectUserQuery = 'SELECT * FROM user WHERE email = ?'
-    const selectUserResult = await db.queryParam_Parse(selectUserQuery, req.body.email);
+    const selectUserResult = await db.queryParam_Parse(selectUserQuery, [req.body.email]);
     console.log(selectUserResult[0])//유저 정보
 
     if (selectUserResult[0] == null) {//id가 존재하지 않으면
@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
             const refreshTokenUpdateQuery = "UPDATE user SET refreshToken = ? WHERE email= ?";
             const refreshTokenUpdateResult = await db.queryParam_Parse(refreshTokenUpdateQuery, [refreshToken, req.body.email]);
             if (!refreshTokenUpdateResult) {
-                res.status(200).send(defaultRes.successTrue(statusCode.DB_ERROR, "refreshtoken DB등록 오류 "));
+                res.status(200).send(defaultRes.successFalse(statusCode.OK, "refreshtoken DB등록 오류 "));
             } else {
                 res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SIGNIN_SUCCESS, tokens));
             }
