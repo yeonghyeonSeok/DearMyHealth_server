@@ -40,7 +40,7 @@ router.get('/:placeIdx', async(req, res, next) => {
         resData.place_thumbnail = selectPlaceResult[0].place_thumbnail;
         resData.place_like = selectPlaceResult[0].place_like;
 
-        const selectDetailQuery = 'SELECT pAddress, pNumber, pFee, pHour FROM place_Detail WHERE placeIdx = ?';
+        const selectDetailQuery = 'SELECT pAddress, pNumber, pFee, pHour FROM place_detail WHERE placeIdx = ?';
         const selectDetailResult = await db.queryParam_Parse(selectDetailQuery, [inputPlaceIdx]);
 
         resData.address = selectDetailResult[0].pAddress;

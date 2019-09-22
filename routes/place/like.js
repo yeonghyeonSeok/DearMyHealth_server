@@ -22,13 +22,13 @@ router.post('/', authUtil.isLoggedin, async(req, res) => {
     if(!inputUserIdx || !inputPlaceIdx) {
         res.status(200).send(resUtil.successFalse(resCode.OK, resMessage.OUT_OF_VALUE));
     } else {
-        const likePlaceCheckQuery = 'SELECT * FROM likePlace WHERE userIdx = ? AND placeIdx = ?';
+        const likePlaceCheckQuery = 'SELECT * FROM place_like WHERE userIdx = ? AND placeIdx = ?';
         const likePlaceCheckResult = await db.queryParam_Arr(likePlaceCheckQuery, [inputUserIdx, inputPlaceIdx]);
 
         if(likePlaceCheckResult.length != 0 ) { //이미 좋아요 된 상태
             res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.ALREADY_LIKE_PLACE));
         } else {
-            const likePlaceInsertQuery = 'INSERT INTO likePlace(userIdx, placeIdx) VALUES (?,?)';
+            const likePlaceInsertQuery = 'INSERT INTO place_like(userIdx, placeIdx) VALUES (?,?)';
             const likePlaceInsertResult = await db.queryParam_Arr(likePlaceInsertQuery, [inputUserIdx, inputPlaceIdx]);
     
             if(!likePlaceInsertResult) { //좋아요 실패
@@ -56,13 +56,13 @@ router.delete('/:placeIdx', authUtil.isLoggedin, async(req, res) => {
     if(!inputUserIdx || !inputPlaceIdx) {
         res.status(200).send(resUtil.successFalse(resCode.OK, resMessage.OUT_OF_VALUE));
     } else {
-        const likePlaceCheckQuery = 'SELECT * FROM likePlace WHERE userIdx = ? AND placeIdx = ?';
+        const likePlaceCheckQuery = 'SELECT * FROM place_like WHERE userIdx = ? AND placeIdx = ?';
         const likePlaceCheckResult = await db.queryParam_Arr(likePlaceCheckQuery, [inputUserIdx, inputPlaceIdx]);
     
         if(likePlaceCheckResult.length == 0) { //이미 좋아요 취소 된 상태
             res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.ALREADY_UNLIKE_PLACE));
         } else {
-            const likePlaceDeleteQuery = 'DELETE FROM likePlace WHERE userIdx = ? AND placeIdx = ?';
+            const likePlaceDeleteQuery = 'DELETE FROM place_like WHERE userIdx = ? AND placeIdx = ?';
             const likePlaceDeleteResult = await db.queryParam_Arr(likePlaceDeleteQuery, [inputUserIdx, inputPlaceIdx]);
     
             if(!likePlaceDeleteResult) { 
