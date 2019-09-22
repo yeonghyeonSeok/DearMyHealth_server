@@ -18,6 +18,7 @@ router.get('/', authUtil.isLoggedin, async (req, res) => {
     }else{
         res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_USER_LIST, infoSelectResult));      // 회원정보 조회 성공
     }
+    console.log(infoSelectResult);
 });
 
 module.exports = router;
