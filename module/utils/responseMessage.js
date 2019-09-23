@@ -20,6 +20,9 @@ module.exports = {
 
     /* MAIN */
     SUCCESS_ORDER_LIKE: "코스 인기순 조회 성공",
+    SUCCESS_LIST_LONG: "오래가게 코스 조회 성공",
+    SUCCESS_LIST_KOREA: "한국전통 코스 조회 성공",
+    SUCCESS_LIST_USER: "사용자 코스 조회 성공",
 
     /* REVIEW */
     SUCCESS_LIST_REVIEW: "리뷰 조회 성공",
