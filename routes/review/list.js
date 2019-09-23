@@ -24,7 +24,7 @@ router.get('/:type', async (req, res) => {
             resAllData.push(item);
         }
             // resAllData.sort(function(a, b) {return b-a});   // 내림차순 정렬
-        res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_LIST_REVIEW, [resAllData])); // 리뷰 조회 성공
+        res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_LIST_REVIEW, resAllData)); // 리뷰 조회 성공
     }
 });
 
