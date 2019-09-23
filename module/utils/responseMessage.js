@@ -22,6 +22,9 @@ module.exports = {
 
     /* REVIEW */
     SUCCESS_LIST_REVIEW: "리뷰 조회 성공",
+    SUCCESS_INSERT_REVIEW: "리뷰 등록 성공",
+    NOT_EXIST_COURSE: "존재하지 않는 코스입니다",
+    NOT_EXIST_PLACE: "존재하지 않는 장소입니다",
 
     /* COURSE */
     TAG_SEARCH_SUCCESS : "태그 검색 성공",
