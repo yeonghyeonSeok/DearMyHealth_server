@@ -4,6 +4,7 @@ module.exports = {
     OUT_OF_VALUE: "파라미터 값이 잘못되었습니다",
 
 //////////////////////////////////////////// 추가
+    LIST_PICK_PLACE : "픽플레이스 조회 성공",
 
     /* AUTH */
     SIGNUP_FAIL : "회원가입 실패",
