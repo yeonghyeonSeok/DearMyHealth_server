@@ -60,6 +60,7 @@ module.exports = {
     SUCCESS_INSERT_NOTICE: "서울시 소식 등록 성공",
     SUCCESS_EDIT_COURSE: "내가 만든 코스 조회성공",
     SUCCESS_LIKE_COURSE: "내가 찜한 코스 조회성공",
+    NOT_LIKE_COURSE: "내가 찜한 코스가 없습니다",
 
     /* SET */
     SUCCESS_USER_LIST: "회원정보 조회 성공",
