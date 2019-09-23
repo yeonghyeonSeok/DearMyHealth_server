@@ -13,19 +13,17 @@ router.get('/:type', async (req, res) => {
 
     const reviewListResult = await db.queryParam_Arr(reviewListQuery, [req.params.type]);
 
-    for(let i = 0 ; i < reviewListResult.length; i++){
-        let item = {
-            info: []
-        }
-        item.info.push(reviewListResult[i]);
-        resAllData.push(item);
-    }
-
-    // resAllData.sort(function(a, b) {return b-a});   // 내림차순 정렬
-
     if(!reviewListResult){
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR)); // DB_ERROR  
-    } else {
+    } else{
+        for(let i = 0 ; i < reviewListResult.length; i++){
+            let item = {
+                info: []
+            }
+            item.info.push(reviewListResult[i]);
+            resAllData.push(item);
+        }
+            // resAllData.sort(function(a, b) {return b-a});   // 내림차순 정렬
         res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_LIST_REVIEW, [resAllData])); // 리뷰 조회 성공
     }
 });
