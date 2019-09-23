@@ -24,6 +24,8 @@ module.exports = {
     SUCCESS_LIST_REVIEW: "리뷰 조회 성공",
 
     /* COURSE */
+    TAG_SEARCH_SUCCESS : "태그 검색 성공",
+
     ALREADY_LIKE_COURSE: "이미 좋아요 상태인 코스",
     FAIL_LIKE_COURSE: "코스 좋아요 실패",
     SUCCESS_LIKE_COURSE: "코스 좋아요 성공",

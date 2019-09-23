@@ -20,7 +20,7 @@ router.get('/:placeIdx', async(req, res, next) => {
     const selectPlaceQuery = 'SELECT * FROM place WHERE placeIdx = ?';
     const selectPlaceResult = await db.queryParam_Parse(selectPlaceQuery, [inputPlaceIdx]);
     
-    if(!selectPlaceResult) { 
+    if(selectPlaceResult[0] == null) { 
         return res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.PLACE_SELECT_FAIL));
     } else {
         const resData  = {
