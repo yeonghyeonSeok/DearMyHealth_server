@@ -12,8 +12,9 @@ const db = require('../../module/pool');
 // 회원정보 조회
 router.get('/', authUtil.isLoggedin, async (req, res) => {
     const infoSelectQuery = 'SELECT email, nickname FROM user WHERE userIdx = ?'; 
-    const infoSelectResult = await db.queryParam_Arr(infoSelectQuery, [req.decoded.idx]);
+    const infoSelectResult = await db.queryParam_Arr(infoSelectQuery, [req.decoded.userIdx]);
 
+    console.log(infoSelectResult);
     if(!infoSelectResult){
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));     // DB 오류
     }else{

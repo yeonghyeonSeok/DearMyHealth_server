@@ -12,7 +12,7 @@ const db = require('../../module/pool');
 router.post('/', authUtil.isLoggedin, async (req, res) => {
 
     const contactSelectQuery = 'SELECT * FROM user WHERE userIdx =?';  // 토큰값을 받아서 확인
-    const contactSelectResult = await db.queryParam_Parse(contactSelectQuery, req.decoded.idx);
+    const contactSelectResult = await db.queryParam_Parse(contactSelectQuery, req.decoded.userIdx);
 
     var transporter = nodemailer.createTransport({  
         service: 'gmail',
@@ -23,9 +23,9 @@ router.post('/', authUtil.isLoggedin, async (req, res) => {
     });
 
     var mailOption = {
-        from: contactSelectResult[0].user_email,  // 보내는 사람 이메일
+        from: contactSelectResult[0].email,  // 보내는 사람 이메일
         to: 'hhyyeon0214@gmail.com',    // 받는 사람 이메일
-        subject: '[PICK+]'+contactSelectResult[0].nickname+'님 문의사항 입니다.',
+        subject: '[PICK+] '+contactSelectResult[0].nickname+'님 문의사항 입니다.',
         text: req.body.comment
     };
 

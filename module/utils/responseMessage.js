@@ -4,6 +4,7 @@ module.exports = {
     OUT_OF_VALUE: "파라미터 값이 잘못되었습니다",
 
 //////////////////////////////////////////// 추가
+    LIST_PICK_PLACE : "픽플레이스 조회 성공",
 
     /* AUTH */
     SIGNUP_FAIL : "회원가입 실패",
@@ -17,6 +18,18 @@ module.exports = {
     NOT_CORRECT_INFO: "올바르지 않은 정보 입니다",
     SUCCESS_FIND_PASSWORD: "비밀번호 찾기 성공",
 
+    /* MAIN */
+    SUCCESS_ORDER_LIKE: "코스 인기순 조회 성공",
+    SUCCESS_LIST_LONG: "오래가게 코스 조회 성공",
+    SUCCESS_LIST_KOREA: "한국전통 코스 조회 성공",
+    SUCCESS_LIST_USER: "사용자 코스 조회 성공",
+
+    /* REVIEW */
+    SUCCESS_LIST_REVIEW: "리뷰 조회 성공",
+    SUCCESS_INSERT_REVIEW: "리뷰 등록 성공",
+    NOT_EXIST_COURSE: "존재하지 않는 코스입니다",
+    NOT_EXIST_PLACE: "존재하지 않는 장소입니다",
+
     /* COURSE */
     COURSE_ENROLL_SUCCESS : "코스 등록 성공",
     COURSE_EDIT_SUCCESS : "코스 생성 성공",
@@ -24,12 +37,15 @@ module.exports = {
     TAG_SEARCH_SUCCESS : "태그 검색 성공",
 
     ALREADY_LIKE_COURSE: "이미 좋아요 상태인 코스",
-    FAIL_LIKE_COURSE: "코스 좋아요 실패",
-    SUCCESS_LIKE_COURSE: "코스 좋아요 성공",
+    COURSE_LIKE_FAIL: "코스 좋아요 실패",
+    COURSE_LIKE_SUCCESS : "코스 좋아요 성공",
 
     ALREADY_UNLIKE_COURSE : "이미 좋아요 취소 상태인 코스",
-    FAIL_UNLIKE_COURSE: "코스 좋아요 취소 실패",
-    SUCCESS_UNLIKE_COURSE : "코스 좋아요 취소 성공",
+    COURSE_UNLIKE_FAIL : "코스 좋아요 취소 실패",
+    COURSE_UNLIKE_SUCCESS : "코스 좋아요 취소 성공",
+
+    NOT_EXIST_EDIT : "사용자 코스가 존재하지 않습니다",
+    SUCCESS_DELETE_EDIT : "사용자 코스 삭제 성공",
 
     /* PLACE */
     PLACE_SELECT_FAIL : "장소 정보 조회 실패",
@@ -51,6 +67,10 @@ module.exports = {
     /* MYPAGE */
     SUCCESS_LIST_NOTICE: "서울시 소식 조회 성공",
     SUCCESS_INSERT_NOTICE: "서울시 소식 등록 성공",
+    SUCCESS_EDIT_COURSE: "내가 만든 코스 조회성공",
+    SUCCESS_LIKE_COURSE: "내가 찜한 코스 조회성공",
+    NOT_LIKE_COURSE: "내가 찜한 코스가 없습니다",
+    NOT_EDIT_COURSE: "내가 찜한 코스가 없습니다",
 
     /* SET */
     SUCCESS_USER_LIST: "회원정보 조회 성공",
