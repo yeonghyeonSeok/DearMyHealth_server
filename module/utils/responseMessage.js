@@ -37,12 +37,12 @@ module.exports = {
     TAG_SEARCH_SUCCESS : "태그 검색 성공",
 
     ALREADY_LIKE_COURSE: "이미 좋아요 상태인 코스",
-    FAIL_LIKE_COURSE: "코스 좋아요 실패",
-    SUCCESS_LIKE_COURSE: "코스 좋아요 성공",
+    COURSE_LIKE_FAIL: "코스 좋아요 실패",
+    COURSE_LIKE_SUCCESS : "코스 좋아요 성공",
 
     ALREADY_UNLIKE_COURSE : "이미 좋아요 취소 상태인 코스",
-    FAIL_UNLIKE_COURSE: "코스 좋아요 취소 실패",
-    SUCCESS_UNLIKE_COURSE : "코스 좋아요 취소 성공",
+    COURSE_UNLIKE_FAIL : "코스 좋아요 취소 실패",
+    COURSE_UNLIKE_SUCCESS : "코스 좋아요 취소 성공",
 
     NOT_EXIST_EDIT : "사용자 코스가 존재하지 않습니다",
     SUCCESS_DELETE_EDIT : "사용자 코스 삭제 성공",
