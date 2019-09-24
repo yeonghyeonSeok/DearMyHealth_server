@@ -47,6 +47,9 @@ module.exports = {
     NOT_EXIST_EDIT : "사용자 코스가 존재하지 않습니다",
     SUCCESS_DELETE_EDIT : "사용자 코스 삭제 성공",
 
+    SUCCESS_INFO_COURSE: "코스 정보 조회 성공",
+    FAIL_INFO_COURSE: "코스 정보 조회 실패",
+
     /* PLACE */
     PLACE_SELECT_FAIL : "장소 정보 조회 실패",
     PLACE_SELECT_SUCCESS : "장소 정보 조회 성공",
@@ -71,6 +74,7 @@ module.exports = {
     SUCCESS_LIKE_COURSE: "내가 찜한 코스 조회성공",
     NOT_LIKE_COURSE: "내가 찜한 코스가 없습니다",
     NOT_EDIT_COURSE: "내가 찜한 코스가 없습니다",
+    SUCCESS_MY_REVIEW: "내가 남긴 리뷰 조회성공",
 
     /* SET */
     SUCCESS_USER_LIST: "회원정보 조회 성공",
