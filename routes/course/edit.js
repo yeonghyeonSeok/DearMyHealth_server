@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+const authUtil = require("../../module/utils/authUtils");   // 토큰 있을 때 사용
 const upload = require('../../config/multer');
 const crypto = require('crypto-promise');
 
@@ -12,7 +13,7 @@ const db = require('../../module/pool');
 /*
 코스 등록
 METHOD       : POST
-URL          : /course/enroll
+URL          : /course/edit
 BODY         : courseName = 코스 이름
                description = 코스에 대한 간단한 설명
                course_thumbnail =  코스 썸네일
@@ -26,9 +27,10 @@ BODY         : courseName = 코스 이름
                totalHour = 총 소요시간
 */
 
-router.post('/', upload.single('course_thumbnail'), async (req, res) => {
-    const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, totalHour, courseDate, cDistrict) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, req.body.date, req.body.district]);
+router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (req, res) => {
+    const inputUserIdx = req.decoded.userIdx;
+    const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, totalHour, courseDate, cDistrict, userIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, req.body.date, req.body.district, inputUserIdx]);
     const inputCourseIdx = insertCourseResult.insertId;
     
     const insertPlaceArrayQuery = 'INSERT INTO course_place (courseIdx) VALUES (?)' //테이블 수정(course_place 테이블에 placeIdx[0] placeIdx[1], placeIdx[2] ...이런식으로(nullable))
@@ -44,7 +46,7 @@ router.post('/', upload.single('course_thumbnail'), async (req, res) => {
         }
     }
 
-    const insertDistanceQuery = 'INSERT INTO distance (courseIdx) VALUES (?)' 
+    const insertDistanceQuery = 'INSERT INTO distance (courseIdx) VALUES (?)' //테이블 수정(course_place 테이블에 placeIdx[0] placeIdx[1], placeIdx[2] ...이런식으로(nullable))
     const insertDistanceResult = await db.queryParam_Parse(insertDistanceQuery, [inputCourseIdx]);
 
     for(i = 1; i<12; i++) {
@@ -76,7 +78,10 @@ router.post('/', upload.single('course_thumbnail'), async (req, res) => {
         }
     }
 
-    res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.COURSE_ENROLL_SUCCESS));
+    const updateEditCountQuery = 'UPDATE user SET editCourseCount = editCourseCount + 1 WHERE userIdx = ?';
+    const updateEditCountResult = await db.queryParam_Parse(updateEditCountQuery, [inputUserIdx]);
+
+    res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.COURSE_EDIT_SUCCESS));
 
 });
 
