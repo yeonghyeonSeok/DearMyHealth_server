@@ -60,13 +60,16 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
     }
 
     const tagCount = req.body.tag.length;
-    console.log(tagCount);
+    //console.log(tagCount);
     for(i = 0; i<tagCount; i++) {
         const selectTagQuery = 'SELECT tagIdx from tag WHERE tagName = ?';
         const selectTagResult = await db.queryParam_Parse(selectTagQuery, [req.body.tag[i]]);
+        //console.log(selectTagResult[0]);
 
         if(selectTagResult[0] != null) {
             const inputTagIdx = selectTagResult[0].tagIdx;
+            console.log('태그등록');
+            console.log(inputTagIdx);
             const insertCourseTagQuery = 'INSERT INTO course_tag (courseIdx, tagIdx) VALUES(?, ?)'
             const insertCourseTagResult = await db.queryParam_Arr(insertCourseTagQuery, [inputCourseIdx, inputTagIdx]);
 
@@ -75,6 +78,11 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
         } else {
             const insertTagQuery = 'INSERT INTO tag (tagName, tagCount) VALUES (?, ?)';
             const insertTagResult = await db.queryParam_Arr(insertTagQuery, [req.body.tag[i], 1]);
+
+            const inputTagIdx = insertTagResult.insertId;
+            console.log(inputTagIdx);
+            const insertCourseTagQuery = 'INSERT INTO course_tag (courseIdx, tagIdx) VALUES(?, ?)'
+            const insertCourseTagResult = await db.queryParam_Arr(insertCourseTagQuery, [inputCourseIdx, inputTagIdx]);
         }
     }
 
