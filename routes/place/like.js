@@ -36,6 +36,10 @@ router.post('/', authUtil.isLoggedin, async(req, res) => {
             } else {        
                 const updatePlaceLikeQuery = 'UPDATE place SET place_like = place_like + 1 WHERE placeIdx = ?';
                 const updatePlaceLikeResult = await db.queryParam_Parse(updatePlaceLikeQuery, [inputPlaceIdx]);
+
+                const updateLikeCountQuery = 'UPDATE user SET pickPlaceCount = pickPlaceCount + 1 WHERE userIdx = ?';
+                const updateLikeCountResult = await db.queryParam_Parse(updateLikeCountQuery, [inputUserIdx]);
+
                 res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_LIKE_PLACE));
             }
         };
@@ -72,10 +76,18 @@ router.delete('/:placeIdx', authUtil.isLoggedin, async(req, res) => {
                 const selectPlaceLikeResult = await db.queryParam_Parse(selectPlaceLikeQuery, [inputPlaceIdx]);
                 
                 const likeCount = selectPlaceLikeResult[0].place_like - 1;
-                console.log(likeCount);
+
+                const selectPickPlaceCountQuery = 'SELECT pickPlaceCount FROM user WHERE userIdx = ?';
+                const selectPickPlaceCountResult = await db.queryParam_Parse(selectPickPlaceCountQuery, [inputUserIdx]);
+
+                const pickPlaceCount = selectPickPlaceCountResult[0].pickPlaceCount - 1;
 
                 const updatePlaceLikeQuery = 'UPDATE place SET place_like = ? WHERE placeIdx = ?';
                 const updatePlaceLikeResult = await db.queryParam_Arr(updatePlaceLikeQuery, [likeCount, inputPlaceIdx]);
+
+                const updatePickPlaceQuery = 'UPDATE user SET pickPlaceCount = ? WHERE userIdx = ?';
+                const updatePickPlaceResult = await db.queryParam_Arr(updatePickPlaceQuery, [pickPlaceCount, inputUserIdx]);
+                
                 res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_UNLIKE_PLACE));
             }
         };

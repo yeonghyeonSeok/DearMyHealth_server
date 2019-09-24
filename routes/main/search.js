@@ -13,7 +13,7 @@ URL          : /main/search?keyword={키워드}
 PARAMETER    : keyword = 검색어
 */
 
-router.get('', async(req, res, next) => {
+router.get('/', async(req, res, next) => {
 
     const keyword = req.query.keyword;
 
@@ -78,9 +78,9 @@ router.get('', async(req, res, next) => {
             return a;
         }, []);
 
-        /*for(b = 0; b < uniqResult.length; b++) {
+        for(b = 0; b < uniqResult.length; b++) {
             const selectCourseInfoQuery = 'SELECT cName,  FROM course'
-        }*/
+        }
 
         console.log(uniqResult[0], result);
         return res.status(200).send(defaultRes.successTrue(statusCode.OK, "검색 성공", uniqResult));
