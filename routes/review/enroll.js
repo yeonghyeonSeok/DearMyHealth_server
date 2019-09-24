@@ -20,7 +20,7 @@ router.post('/course', authUtil.isLoggedin, async (req, res) => {
 
     const userIdx = userSelectResult[0].userIdx;
     const nickname = userSelectResult[0].nickname;
-    // const placeIdx = placeSelectResult[0].placeIdx;
+    const courseIdx = courseSelectResult[0].courseIdx;
 
     console.log(courseSelectResult);
     if(!userSelectResult){
@@ -31,12 +31,15 @@ router.post('/course', authUtil.isLoggedin, async (req, res) => {
         } else {
             if(courseSelectResult[0] != null){     // courseIdx가 존재할 경우 INSERT 가능
                 const reviewUpdateQuery = 'UPDATE user SET reviewCount = reviewCount + 1 WHERE userIdx = ?';
+                const countUpdateQuery = 'UPDATE course SET cReviewCount = cReviewCount + 1 WHERE courseIdx = ?';
                 const reviewInsertQuery = 'INSERT INTO review (reviewType, userIdx, courseIdx, nickname, createdAt, comment, emotion) VALUES (?, ?, ?, ?, ?, ?, ?)';
                 // user 테이블의 reviewCount +1 증가, user가 리뷰한 개수
                 const Transaction = await db.Transaction(async (connection) =>{
                     const reviewUpdateResult = await connection.query(reviewUpdateQuery, [userIdx]);
+                    const countUpdateResult = await connection.query(countUpdateQuery, [courseIdx]);
+
                     const reviewInsertResult = await connection.query(reviewInsertQuery, 
-                        [1, userIdx, courseSelectResult[0].courseIdx, nickname , moment().format('YYYY-MM-DD HH:mm:ss'), req.body.comment, req.body.emotion]);
+                        [1, userIdx, courseIdx, nickname , moment().format('YYYY-MM-DD HH:mm:ss'), req.body.comment, req.body.emotion]);
                 });
                     if(!Transaction){
                         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));    // DB ERROR
@@ -61,7 +64,7 @@ router.post('/place', authUtil.isLoggedin, async (req, res) => {
 
     const userIdx = userSelectResult[0].userIdx;
     const nickname = userSelectResult[0].nickname;
-    // const placeIdx = placeSelectResult[0].placeIdx;
+    const placeIdx = placeSelectResult[0].placeIdx;
 
     console.log(placeSelectResult);
     if(!userSelectResult){
@@ -72,12 +75,14 @@ router.post('/place', authUtil.isLoggedin, async (req, res) => {
         } else {
             if(placeSelectResult[0] != null){     // placeIdx가 존재할 경우 INSERT 가능
                 const reviewUpdateQuery = 'UPDATE user SET reviewCount = reviewCount + 1 WHERE userIdx = ?';
+                const countUpdateQuery = 'UPDATE place SET pReviewCount = pReviewCount + 1 WHERE placeIdx = ?';
                 const reviewInsertQuery = 'INSERT INTO review (reviewType, userIdx, placeIdx, nickname, createdAt, comment, emotion) VALUES (?, ?, ?, ?, ?, ?, ?)';
                 // user 테이블의 reviewCount +1 증가, user가 리뷰한 개수
                 const Transaction = await db.Transaction(async (connection) =>{
                     const reviewUpdateResult = await connection.query(reviewUpdateQuery, [userIdx]);
+                    const countUpdateResult = await connection.query(countUpdateQuery, [placeIdx]);
                     const reviewInsertResult = await connection.query(reviewInsertQuery, 
-                        [2, userIdx, placeSelectResult[0].placeIdx, nickname , moment().format('YYYY-MM-DD HH:mm:ss'), req.body.comment, req.body.emotion]);
+                        [2, userIdx, placeIdx, nickname , moment().format('YYYY-MM-DD HH:mm:ss'), req.body.comment, req.body.emotion]);
                 });
                     if(!Transaction){
                         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));    // DB ERROR

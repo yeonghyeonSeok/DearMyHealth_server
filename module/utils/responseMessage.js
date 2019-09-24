@@ -44,6 +44,9 @@ module.exports = {
     COURSE_UNLIKE_FAIL : "코스 좋아요 취소 실패",
     COURSE_UNLIKE_SUCCESS : "코스 좋아요 취소 성공",
 
+    NOT_EXIST_EDIT : "사용자 코스가 존재하지 않습니다",
+    SUCCESS_DELETE_EDIT : "사용자 코스 삭제 성공",
+
     /* PLACE */
     PLACE_SELECT_FAIL : "장소 정보 조회 실패",
     PLACE_SELECT_SUCCESS : "장소 정보 조회 성공",
