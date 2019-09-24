@@ -9,17 +9,17 @@ const db = require('../../module/pool');
 /*
 메인 검색
 METHOD       : GET
-URL          : /main/search/:keyword
+URL          : /main/search?keyword={키워드}
 PARAMETER    : keyword = 검색어
 */
 
-router.get('/:keyword', async(req, res, next) => {
+router.get('/', async(req, res, next) => {
 
     const keyword = req.query.keyword;
 
-    const QUERY1 = 'SELECT * FROM course WHERE cName LIKE "%' + keyword + '%"';
-    const QUERY2 = 'SELECT tagIdx FROM Tags WHERE tagName LIKE "%' + keyword + '%"';
-    const QUERY3 = 'SELECT placeIdx FROM place WHERE pName LIKE "%' + keyword + '%"';  
+    const QUERY1 = 'SELECT * FROM course WHERE cName LIKE "%'+keyword+'%"';
+    const QUERY2 = 'SELECT tagIdx FROM tag WHERE tagName LIKE "%'+keyword+'%"';
+    const QUERY3 = 'SELECT placeIdx FROM place WHERE pName LIKE "%'+keyword+'%"';  
 
     try {
         let result = new Array();
@@ -38,10 +38,10 @@ router.get('/:keyword', async(req, res, next) => {
         if(result2.length > 0) {
             console.log(result2);
             let tag = new Array();
-            const searchTagQuery = 'SELECT courseIdx FROM course_Tag Where tagIdx = ?';
+            const searchTagQuery = 'SELECT courseIdx FROM course_tag WHERE tagIdx = ?';
 
             for(i = 0; i < result2.length; i++) {
-                const searchTagResult = await db.queryParam_Parse(searchTagQuery, result2[i]);
+                const searchTagResult = await db.queryParam_Parse(searchTagQuery, [result2[i]]);
                 console.log(searchTagResult);
                 if(searchTagResult.length > 0) {
                     tag.push(searchTagResult);
@@ -51,10 +51,10 @@ router.get('/:keyword', async(req, res, next) => {
             console.log(tag);
 
             if(tag.length > 0) {
-                const courseTagQuery = 'SELECT * FROM course Where courseIdx = ?';
+                const courseTagQuery = 'SELECT * FROM course WHERE courseIdx = ?';
 
                 for(i = 0; i < tag.length; i++) {
-                    const courseTagResult = await db.queryParam_Parse(courseTagQuery, tag[i]);
+                    const courseTagResult = await db.queryParam_Parse(courseTagQuery, [tag[i]]);
                     console.log(courseTagResult);
                     if(courseTagResult.length > 0) {
                         result.push({
@@ -68,24 +68,27 @@ router.get('/:keyword', async(req, res, next) => {
         if(result3.length > 0) {
             console.log(result3);
             let place = new Array();
-            const searchPlaceQuery = 'SELECT courseIdx FROM course_Places Where placeIdx = ?';
-            
+           
             for(i = 0; i<result3.length; i++) {
-                const searchPlaceResult = await db.queryParam_Parse(searchPlaceQuery, result3[i]);
-                console.log(searchPlaceResult);
-                if(searchPlaceResult.length > 0) {
-                    place.push(searchPlaceResult);
-                }
+                for(i = 1; i<13; i++) {
+                    const searchPlaceQuery = 'SELECT courseIdx FROM course_place WHERE place_'+i+' = ?';
+                    const searchPlaceResult = await db.queryParam_Parse(searchPlaceQuery, [result3[i]]);
+                    if(searchPlaceResult[0] != null) {
+                        place.push(searchPlaceResult);
+                    } else {
+                        break;
+                    }
+                }                
             }
 
             console.log(place);
             
             if(place.length > 0) {
-                const coursePlaceQuery = 'SELECT * FROM course Where courseIdx = ?';
+                const coursePlaceQuery = 'SELECT * FROM course WHERE courseIdx = ?';
 
                 for(i = 0; i < place.length; i++) {
-                    const coursePlaceResult = await db.queryParam_Parse(coursePlaceQuery, place[i]);
-                    console.log(corsePlaceResult);
+                    const coursePlaceResult = await db.queryParam_Parse(coursePlaceQuery, [place[i]]);
+                    console.log(coursePlaceResult);
                     if(coursePlaceResult.length > 0) {
                         result.push({
                             "코스 장소에 키워드 포함" : coursePlaceResult
