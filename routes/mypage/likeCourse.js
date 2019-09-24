@@ -11,11 +11,12 @@ const db = require('../../module/pool');
 // 내가 찜한 코스 조회
 router.get('/', authUtil.isLoggedin, async (req, res) => {
     let resAllData = [];
-    const likeSelectQuery = 'SELECT * FROM course JOIN course_like ON course.courseIdx = course_like.courseIdx WHERE userIdx = ? ORDER BY course.cLikeCount DESC'; 
+    const likeSelectQuery = 'SELECT course.courseIdx, course.cName, course.cThumbnail, course.cLikeCount, course.cType'+
+    ' FROM course JOIN course_like ON course.courseIdx = course_like.courseIdx WHERE course_like.userIdx = ? ORDER BY course.cLikeCount DESC'; 
     // 좋아요 순으로 내가 찜한 코스 조회
     const likeSelectResult = await db.queryParam_Arr(likeSelectQuery, [req.decoded.userIdx]);
 
-    // console.log(likeSelectResult);
+    console.log(likeSelectResult);
     if(!likeSelectResult){
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));     // DB 오류
     } else {

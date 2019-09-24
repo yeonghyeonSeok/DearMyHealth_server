@@ -8,8 +8,7 @@ const statusCode = require('../../module/utils/statusCode');
 const resMessage = require('../../module/utils/responseMessage')
 const db = require('../../module/pool');
 
-// 내가 만든 코스 조회
-// idx, 이름, 썸네일, 좋아요수
+// 내가 남긴 리뷰 조회
 router.get('/', authUtil.isLoggedin, async (req, res) => {
     let resAllData = [];
     // const edtSelectQuery = 'SELECT * FROM user JOIN course ON user.userIdx = course.userIdx WHERE userIdx = ? ORDER BY course.cLikeCount DESC'; 
