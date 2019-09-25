@@ -29,19 +29,9 @@ router.get('/:courseIdx', async (req, res) => {
             cLikeCount: 0,
             totalHour: "",
             cReviewCount: 0,
-            place_1: 0,
-            place_2: 0,
-            place_3: 0,
-            place_4: 0,
-            place_5: 0,
-            place_6: 0,
-            place_7: 0,
-            place_8: 0,
-            place_9: 0,
-            place_10: 0,
-            place_11: 0,
-            place_12: 0,
+            place : [],
             tagIdx: [],
+            distance : [],
         }
     
         infoData.courseIdx = infoSelectResult[0].courseIdx;
@@ -52,6 +42,19 @@ router.get('/:courseIdx', async (req, res) => {
         infoData.cThumbnail = infoSelectResult[0].cThumbnail;
         infoData.cLikeCount = infoSelectResult[0].totalHour;
         infoData.cReviewCount = infoSelectResult[0].cReviewCount;
+        
+        var placeArray = new Array();
+                
+        for(let i = 0; i<infoSelectResult.length; i++){
+           // placeArray.push(infoSelectResult[i].place_'+i+');
+        }
+
+        const selectTagNameQuery = 'SELECT tagName FROM tag WHERE tagIdx = ?';
+        for(e = 0; e < tagArray.length; e++) {
+            console.log(tagArray.length);
+            const selectTagNameResult = await db.queryParam_Parse(selectTagNameQuery, [tagArray[e]]);
+            infoData.tag.push(selectTagNameResult[0].tagName);
+        }
         infoData.place_1 = infoSelectResult[0].place_1;
         infoData.place_2 = infoSelectResult[0].place_2;
         infoData.place_3 = infoSelectResult[0].place_3;

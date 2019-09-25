@@ -52,7 +52,7 @@ router.post('/', upload.single('place_thumbnail'), async (req, res) => {
         }
 
         if(req.body.businessHour != null) {
-            const updateHourQuery = 'UPDATE place_Detail SET pHour = ? WHERE placeIdx = ?';
+            const updateHourQuery = 'UPDATE place_detail SET pHour = ? WHERE placeIdx = ?';
             const updateHourResult = await db.queryParam_Arr(updateHourQuery, [req.body.businessHour, inputPlaceIdx]);
         }
         

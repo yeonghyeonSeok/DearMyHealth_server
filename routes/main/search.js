@@ -114,7 +114,6 @@ router.get('/', async(req, res, next) => {
                 infoData.courseIcon = infoSelectResult[0].courseIcon;
 
                 var tagArray = new Array();
-                var tagName = new Array();
                 
                 for(let d = 0; d<infoSelectResult.length; d++){
                     tagArray.push(infoSelectResult[d].tagIdx)
