@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 const authUtil = require("../../module/utils/authUtils");   // 토큰 있을 때 사용
+
 const upload = require('../../config/multer');
+const crypto = require('crypto-promise');
 
 const defaultRes = require('../../module/utils/utils');
 const statusCode = require('../../module/utils/statusCode');
@@ -10,7 +12,7 @@ const resMessage = require('../../module/utils/responseMessage')
 const db = require('../../module/pool');
 
 /*
-코스 등록
+코스 생성
 METHOD       : POST
 URL          : /course/edit
 BODY         : courseName = 코스 이름
@@ -28,36 +30,28 @@ BODY         : courseName = 코스 이름
 
 router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (req, res) => {
     const inputUserIdx = req.decoded.userIdx;
+
     const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, totalHour, courseDate, cDistrict, userIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, req.body.date, req.body.district, inputUserIdx]);
     const inputCourseIdx = insertCourseResult.insertId;
+
+    const placeCount = req.body.place.length;
     
-    const insertPlaceArrayQuery = 'INSERT INTO course_place (courseIdx) VALUES (?)' //테이블 수정(course_place 테이블에 placeIdx[0] placeIdx[1], placeIdx[2] ...이런식으로(nullable))
-    const insertPlaceArrayResult = await db.queryParam_Parse(insertPlaceArrayQuery, [inputCourseIdx]);
-
-    for(i = 1; i<13; i++) {
-        if(req.body.placeArray[i-1] != null) {
-            const updatePlaceArrayQuery = 'UPDATE course_place SET place_'+i+' = ? WHERE courseIdx = ?';
-            const updatePlaceArrayResult = await db.queryParam_Arr(updatePlaceArrayQuery, [req.body.placeArray[i-1], inputCourseIdx]);
-        }
-        else {
-            break;
+    if(placeCount > 0) {
+        for(i = 0; i<placeCount; i++) {
+            const insertCoursePlaceQuery = 'INSERT INTO course_place (courseIdx, placeIdx) VALUES(?, ?)'
+            const insertCoursePlaceResult = await db.queryParam_Arr(insertCoursePlaceQuery, [inputCourseIdx, req.body.place[i]]);
         }
     }
 
-    const insertDistanceQuery = 'INSERT INTO distance (courseIdx) VALUES (?)' //테이블 수정(course_place 테이블에 placeIdx[0] placeIdx[1], placeIdx[2] ...이런식으로(nullable))
-    const insertDistanceResult = await db.queryParam_Parse(insertDistanceQuery, [inputCourseIdx]);
-
-    for(i = 1; i<12; i++) {
-        if(req.body.distance[i-1] != null) {
-            const updateDistanceQuery = 'UPDATE distance SET distance_'+i+' = ? WHERE courseIdx = ?';
-            const updateDistanceResult = await db.queryParam_Arr(updateDistanceQuery, [req.body.distance[i-1], inputCourseIdx]);
-        }
-        else {
-            break;
+    const distanceCount = req.body.distance.length;
+    if(distanceCount > 0) {
+        for(j = 0; j < distanceCount; j++) {
+            const insertDistanceQuery = 'INSERT INTO distance (courseIdx, distance) VALUES (?, ?)'
+            const insertDistanceResult = await db.queryParam_Arr(insertDistanceQuery, [inputCourseIdx, req.body.distance[j]]);
         }
     }
-
+    
     const tagCount = req.body.tag.length;
     //console.log(tagCount);
     for(i = 0; i<tagCount; i++) {
@@ -67,7 +61,6 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
 
         if(selectTagResult[0] != null) {
             const inputTagIdx = selectTagResult[0].tagIdx;
-            console.log('태그등록');
             console.log(inputTagIdx);
             const insertCourseTagQuery = 'INSERT INTO course_tag (courseIdx, tagIdx) VALUES(?, ?)'
             const insertCourseTagResult = await db.queryParam_Arr(insertCourseTagQuery, [inputCourseIdx, inputTagIdx]);
@@ -84,7 +77,6 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
             const insertCourseTagResult = await db.queryParam_Arr(insertCourseTagQuery, [inputCourseIdx, inputTagIdx]);
         }
     }
-
     const updateEditCountQuery = 'UPDATE user SET editCourseCount = editCourseCount + 1 WHERE userIdx = ?';
     const updateEditCountResult = await db.queryParam_Parse(updateEditCountQuery, [inputUserIdx]);
 
@@ -121,7 +113,5 @@ router.delete('/', authUtil.isLoggedin, async (req, res) => {
         }
     }
 });
-
-
 
 module.exports = router;
