@@ -28,7 +28,7 @@ router.get('/:courseIdx', async (req, res) => {
                 cLikeCount: 0,
                 totalHour: "",
                 cReviewCount: 0,
-                place : [],
+                placeIdx: [],
                 tag : [],
                 distance : [],
             }
@@ -68,7 +68,7 @@ router.get('/:courseIdx', async (req, res) => {
             for(i = 0; i<infoPlaceResult.length; i++) {
                 console.log('info');
                 console.log(infoPlaceResult[i].placeIdx);
-                infoData.place.push(infoPlaceResult[i].placeIdx);
+                infoData.placeIdx.push(infoPlaceResult[i].placeIdx);
             }
 
 

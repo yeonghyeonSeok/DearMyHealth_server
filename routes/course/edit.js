@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 const authUtil = require("../../module/utils/authUtils");   // 토큰 있을 때 사용
+var moment = require('moment');
 
 const upload = require('../../config/multer');
-const crypto = require('crypto-promise');
 
 const defaultRes = require('../../module/utils/utils');
 const statusCode = require('../../module/utils/statusCode');
@@ -32,7 +32,7 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
     const inputUserIdx = req.decoded.userIdx;
 
     const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, totalHour, courseDate, cDistrict, userIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, req.body.date, req.body.district, inputUserIdx]);
+    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, moment().format('YYYY-MM-DD HH:mm:ss'), req.body.district, inputUserIdx]);
     const inputCourseIdx = insertCourseResult.insertId;
 
     const placeCount = req.body.place.length;
@@ -90,9 +90,6 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
 router.delete('/:courseIdx', authUtil.isLoggedin, async (req, res) => {
     const userSelectQuery = "SELECT * FROM course WHERE courseIdx = ? AND userIdx = ?"
     const userSelectResult = await db.queryParam_Arr(userSelectQuery, [req.params.courseIdx, req.decoded.userIdx]);
-
-    console.log(userSelectResult[0].courseIdx);
-    console.log(userSelectResult[0].userIdx);
 
     if (!userSelectResult) {
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));

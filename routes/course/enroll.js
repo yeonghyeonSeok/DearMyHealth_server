@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const upload = require('../../config/multer');
-const crypto = require('crypto-promise');
+var moment = require('moment');
 
 const defaultRes = require('../../module/utils/utils');
 const statusCode = require('../../module/utils/statusCode');
@@ -28,7 +28,7 @@ BODY         : courseName = 코스 이름
 
 router.post('/', upload.single('course_thumbnail'), async (req, res) => {
     const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, totalHour, courseDate, cDistrict) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, req.body.date, req.body.district]);
+    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, moment().format('YYYY-MM-DD HH:mm:ss'), req.body.district]);
     const inputCourseIdx = insertCourseResult.insertId;
 
     const placeCount = req.body.place.length;
