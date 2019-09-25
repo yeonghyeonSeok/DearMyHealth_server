@@ -8,8 +8,7 @@ const db = require('../../module/pool');
 
 // 코스 정보 조회
 router.get('/:courseIdx', async (req, res) => {
-    const infoSelectQuery = 'SELECT * FROM course LEFT JOIN course_place ON course.courseIdx = course_place.courseIdx'+
-    ' LEFT JOIN course_tag ON course.courseIdx = course_tag.courseIdx WHERE course.courseIdx = ?';
+    const infoSelectQuery = 'SELECT * FROM course WHERE courseIdx = ?';
 
     const infoSelectResult = await db.queryParam_Arr(infoSelectQuery, [req.params.courseIdx]);
 
@@ -19,58 +18,68 @@ router.get('/:courseIdx', async (req, res) => {
         if(infoSelectResult[0] == null){
             res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.FAIL_INFO_COURSE)); // 코스 정보 조회 실패
         } else {
-        var infoData = {
-            courseIdx: 0,
-            cName: "",
-            cDistrict: 0,
-            cType: 0,
-            cDescription: "",
-            cThumbnail: "",
-            cLikeCount: 0,
-            totalHour: "",
-            cReviewCount: 0,
-            place : [],
-            tagIdx: [],
-            distance : [],
-        }
-    
-        infoData.courseIdx = infoSelectResult[0].courseIdx;
-        infoData.cName = infoSelectResult[0].cName;
-        infoData.cDistrict = infoSelectResult[0].cDistrict;
-        infoData.cType = infoSelectResult[0].cType;
-        infoData.cDescription = infoSelectResult[0].cDescription;
-        infoData.cThumbnail = infoSelectResult[0].cThumbnail;
-        infoData.cLikeCount = infoSelectResult[0].totalHour;
-        infoData.cReviewCount = infoSelectResult[0].cReviewCount;
+            var infoData = {
+                courseIdx: 0,
+                cName: "",
+                cDistrict: 0,
+                cType: 0,
+                cDescription: "",
+                cThumbnail: "",
+                cLikeCount: 0,
+                totalHour: "",
+                cReviewCount: 0,
+                place : [],
+                tag : [],
+                distance : [],
+            }
         
-        var placeArray = new Array();
-                
-        for(let i = 0; i<infoSelectResult.length; i++){
-           // placeArray.push(infoSelectResult[i].place_'+i+');
-        }
+            infoData.courseIdx = infoSelectResult[0].courseIdx;
+            infoData.cName = infoSelectResult[0].cName;
+            infoData.cDistrict = infoSelectResult[0].cDistrict;
+            infoData.cType = infoSelectResult[0].cType;
+            infoData.cDescription = infoSelectResult[0].cDescription;
+            infoData.cThumbnail = infoSelectResult[0].cThumbnail;
+            infoData.cLikeCount = infoSelectResult[0].totalHour;
+            infoData.cReviewCount = infoSelectResult[0].cReviewCount;
 
-        const selectTagNameQuery = 'SELECT tagName FROM tag WHERE tagIdx = ?';
-        for(e = 0; e < tagArray.length; e++) {
-            console.log(tagArray.length);
-            const selectTagNameResult = await db.queryParam_Parse(selectTagNameQuery, [tagArray[e]]);
-            infoData.tag.push(selectTagNameResult[0].tagName);
-        }
-        infoData.place_1 = infoSelectResult[0].place_1;
-        infoData.place_2 = infoSelectResult[0].place_2;
-        infoData.place_3 = infoSelectResult[0].place_3;
-        infoData.place_4 = infoSelectResult[0].place_4;
-        infoData.place_5 = infoSelectResult[0].place_5;
-        infoData.place_6 = infoSelectResult[0].place_6;
-        infoData.place_7 = infoSelectResult[0].place_7;
-        infoData.place_8 = infoSelectResult[0].place_8;
-        infoData.place_9 = infoSelectResult[0].place_9;
-        infoData.place_10 = infoSelectResult[0].place_10;
-        infoData.place_11 = infoSelectResult[0].place_11;
-        infoData.place_12 = infoSelectResult[0].place_12;
+            const infoTagQuery = 'SELECT tagIdx FROM course_tag WHERE courseIdx = ?';
+            const infoTagResult = await db.queryParam_Parse(infoTagQuery, [req.params.courseIdx]);
+            
+            var tagArray = new Array();
+            //tagArray.push(infoTagResult[0].tagIdx);
 
-        for(let i = 0; i<infoSelectResult.length; i++){
-            infoData.tagIdx.push(infoSelectResult[i].tagIdx);
-        }
+                    
+            for(d = 0; d<infoTagResult.length; d++){
+                tagArray.push(infoTagResult[d].tagIdx)
+            }
+            console.log('tagArray');
+            console.log(tagArray);
+
+            const selectTagQuery = 'SELECT tagName FROM tag WHERE tagIdx = ?';
+            for(e = 0; e < tagArray.length; e++) {
+                console.log(tagArray.length);
+                const selectTagResult = await db.queryParam_Parse(selectTagQuery, [tagArray[e]]);
+                infoData.tag.push(selectTagResult[0].tagName);
+            }
+
+            const infoPlaceQuery = 'SELECT placeIdx FROM course_place WHERE courseIdx = ?';
+            const infoPlaceResult = await db.queryParam_Parse(infoPlaceQuery, [req.params.courseIdx]);
+
+            for(i = 0; i<infoPlaceResult.length; i++) {
+                console.log('info');
+                console.log(infoPlaceResult[i].placeIdx);
+                infoData.place.push(infoPlaceResult[i].placeIdx);
+            }
+
+
+            const selectDistanceQuery = 'SELECT distance FROM distance WHERE courseIdx = ?';
+            const selectDistanceResult = await db.queryParam_Parse(selectDistanceQuery, [req.params.courseIdx]);
+
+            for(i = 0; i<selectDistanceResult.length; i++) {
+                infoData.distance.push(selectDistanceResult[i].distance);
+            }
+            //infoData.distance.push(selectDistanceResult);
+
         res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_INFO_COURSE, infoData));  // 코스 정보 조회 성공
         }
     }   
