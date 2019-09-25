@@ -87,12 +87,12 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 사용자 코스 삭제
-router.delete('/', authUtil.isLoggedin, async (req, res) => {
-    const userSelectQuery = "SELECT * FROM user JOIN course ON course.userIdx = user.userIdx WHERE course.courseIdx = ? AND course.userIdx = ?"
-    const userSelectResult = await db.queryParam_Arr(userSelectQuery, [req.body.courseIdx, req.decoded.userIdx]);
+router.delete('/:courseIdx', authUtil.isLoggedin, async (req, res) => {
+    const userSelectQuery = "SELECT * FROM course WHERE courseIdx = ? AND userIdx = ?"
+    const userSelectResult = await db.queryParam_Arr(userSelectQuery, [req.params.courseIdx, req.decoded.userIdx]);
 
-    const userIdx = userSelectResult[0].userIdx;
-    const courseIdx = userSelectResult[0].courseIdx;
+    console.log(userSelectResult[0].courseIdx);
+    console.log(userSelectResult[0].userIdx);
 
     if (!userSelectResult) {
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));
@@ -100,18 +100,18 @@ router.delete('/', authUtil.isLoggedin, async (req, res) => {
         if (userSelectResult[0] == null) {
             res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_EXIST_EDIT));    // 사용자 코스가 존재하지 않습니다
         } else {
-            const courseDeleteQuery = 'DELETE FROM course WHERE course.courseIdx = ? AND course.userIdx = ?';
-            const courseDeleteResult = await db.queryParam_Arr(courseDeleteQuery, [courseIdx, userIdx]);
-
+            const courseDeleteQuery = 'DELETE FROM course WHERE courseIdx = ? AND userIdx = ?';
+            const courseDeleteResult = await db.queryParam_Arr(courseDeleteQuery, [userSelectResult[0].courseIdx, userSelectResult[0].userIdx]);    
             const userUpdateQuery = 'UPDATE user SET editCourseCount = editCourseCount - 1 WHERE userIdx =?';
-            const userUpdateResult = await db.queryParam_Arr(userUpdateQuery, [userIdx]);
-            if (!courseDeleteResult) {
+            const userUpdateResult = await db.queryParam_Arr(userUpdateQuery, [userSelectResult[0].userIdx]);  
+
+            if(!courseDeleteResult && !userUpdateResult){
                 res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));
             } else {
-                res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_DELETE_EDIT));    // 사용자 코스 삭제 성공
+                res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_DELETE_EDIT));    // 사용자 코스 삭제 성공  
             }
         }
-    }
+    }   
 });
 
 module.exports = router;
