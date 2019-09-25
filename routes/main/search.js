@@ -59,15 +59,12 @@ router.get('/', async(req, res, next) => {
         if(result3.length > 0) {
             console.log(result3);
             //let tag = new Array();
-
+            const searchPlaceQuery = 'SELECT courseIdx FROM course_place Where placeIdx = ?';
             for(i = 0; i < result3.length; i++) {
-                for(k = 1; k < 13; k++) {
-                    const searchPlaceQuery = 'SELECT courseIdx FROM course_place Where place_'+k+' = ?';
-                    const searchPlaceResult = await db.queryParam_Parse(searchPlaceQuery, result3[i].placeIdx);
-                    if(searchPlaceResult.length > 0) {
-                        for(a = 0; a < searchPlaceResult.length; a++) {
-                            result.push(searchPlaceResult[a].courseIdx);
-                        }
+                const searchPlaceResult = await db.queryParam_Parse(searchPlaceQuery, result3[i].placeIdx);
+                if(searchPlaceResult.length > 0) {
+                    for(a = 0; a < searchPlaceResult.length; a++) {
+                        result.push(searchPlaceResult[a].courseIdx);
                     }
                 }
             }
@@ -114,7 +111,6 @@ router.get('/', async(req, res, next) => {
                 infoData.courseIcon = infoSelectResult[0].courseIcon;
 
                 var tagArray = new Array();
-                var tagName = new Array();
                 
                 for(let d = 0; d<infoSelectResult.length; d++){
                     tagArray.push(infoSelectResult[d].tagIdx)
