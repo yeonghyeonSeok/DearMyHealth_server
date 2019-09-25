@@ -19,6 +19,8 @@ module.exports = {
     SUCCESS_FIND_PASSWORD: "비밀번호 찾기 성공",
 
     /* MAIN */
+    MAIN_SEARCH_FAIL : "검색 실패",
+    MAIN_SEARCH_SUCCESS : "검색 성공",
     SUCCESS_ORDER_LIKE: "코스 인기순 조회 성공",
     SUCCESS_LIST_LONG: "오래가게 코스 조회 성공",
     SUCCESS_LIST_KOREA: "한국전통 코스 조회 성공",
