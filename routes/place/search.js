@@ -31,6 +31,7 @@ router.get('/', async(req, res, next) => {
         for(i = 0; i < searchPlaceResult.length; i++) {
             const inputPlaceIdx = searchPlaceResult[i].placeIdx;
             resData[i]  = {
+                placeIdx : "", // INT
                 placeName : "",
                 description : "",
                 place_thumbnail : "", // INT
@@ -42,6 +43,7 @@ router.get('/', async(req, res, next) => {
                 location : ""
             };
     
+            resData[i].placeIdx = searchPlaceResult[i].placeIdx;
             resData[i].placeName = searchPlaceResult[i].pName;
             resData[i].description = searchPlaceResult[i].pDescription;
             resData[i].place_thumbnail = searchPlaceResult[i].place_thumbnail;
