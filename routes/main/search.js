@@ -77,7 +77,11 @@ router.get('/', async(req, res, next) => {
             if(a.indexOf(b) < 0) a.push(b);
             return a;
         }, []);
-        
+
+        if(uniqResult[0] == null) {
+            res.status(200).send(defaultRes.successFalse(statusCode.OK, "검색내용없음"));
+        } else {
+            
 
         var searchResult = new Array();
         //console.log(uniqResult[0], result);
@@ -88,7 +92,7 @@ router.get('/', async(req, res, next) => {
 
             if(!infoSelectResult){
                 res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.MAIN_SEARCH_FAIL));
-            }else{
+            } else{
                 if(infoSelectResult[0] == null){
                 res.status(200).send(defaultRes.successFalse(statusCode.OK, "검색내용없음")); // 코스 정보 조회 실패
                 } else {
@@ -124,11 +128,14 @@ router.get('/', async(req, res, next) => {
                 }
 
                 //infoData.tag.push(tagName);
+                }
             }
+            searchResult.push(infoData);
+            console.log(searchResult);   
         }
-        searchResult.push(infoData);
-        console.log(searchResult);   
+
     }
+        
 
     return res.status(200).send(defaultRes.successTrue(statusCode.OK, "검색 성공", searchResult));
     
