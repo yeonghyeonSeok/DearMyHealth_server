@@ -115,12 +115,14 @@ router.get('/', async(req, res, next) => {
                 for(let d = 0; d<infoSelectResult.length; d++){
                     tagArray.push(infoSelectResult[d].tagIdx)
                 }
+                if(tagArray[0] != null) {
 
-                const selectTagNameQuery = 'SELECT tagName FROM tag WHERE tagIdx = ?';
-                for(e = 0; e < tagArray.length; e++) {
-                    console.log(tagArray.length);
-                    const selectTagNameResult = await db.queryParam_Parse(selectTagNameQuery, [tagArray[e]]);
-                    infoData.tag.push(selectTagNameResult[0].tagName);
+                    const selectTagNameQuery = 'SELECT tagName FROM tag WHERE tagIdx = ?';
+                    for(e = 0; e < tagArray.length; e++) {
+                        console.log(tagArray.length);
+                        const selectTagNameResult = await db.queryParam_Parse(selectTagNameQuery, [tagArray[e]]);
+                        infoData.tag.push(selectTagNameResult[0].tagName);
+                    }
                 }
 
                 //infoData.tag.push(tagName);
