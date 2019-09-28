@@ -34,13 +34,13 @@
 
 **[ERD]**
 
-![ERD]추가
+추가
 
 
 
 **[API]**
 
-![API]https://github.com/project-pickple/Pickple_Server/wiki
+https://github.com/project-pickple/Pickple_Server/wiki
 
 
 
@@ -56,6 +56,6 @@
 **[PICKPLE의 다른 프로젝트]**
 
 - 안드로이드 
-![project]<https://github.com/mym0404/Pick-Place-Android>
+<https://github.com/mym0404/Pick-Place-Android>
 
 
