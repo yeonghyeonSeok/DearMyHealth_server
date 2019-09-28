@@ -3,7 +3,7 @@
 ### Pick Place
 
 ***
-![logo_img](https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg width="40%")
+![logo_img](https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg)
 
 
 
@@ -49,7 +49,5 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 **[PICKPLE의 다른 프로젝트]**
 
-- 안드로이드
-
-https://github.com/mym0404/Pick-Place-Android
+- 안드로이드 https://github.com/mym0404/Pick-Place-Android
 
