@@ -98,6 +98,7 @@ router.get('/', async(req, res, next) => {
                         cName: "",
                         cThumbnail: "",
                         cLikeCount: 0,
+                        totalHour: "",
                         cReviewCount: 0,
                         courseIcon : 0,
                         tag: [],
@@ -106,7 +107,8 @@ router.get('/', async(req, res, next) => {
                 infoData.courseIdx = infoSelectResult[0].courseIdx;
                 infoData.cName = infoSelectResult[0].cName;
                 infoData.cThumbnail = infoSelectResult[0].cThumbnail;
-                infoData.cLikeCount = infoSelectResult[0].totalHour;
+                infoData.cLikeCount = infoSelectResult[0].cLikeCount;
+                infoData.totalHour = infoSelectResult[0].totalHour;
                 infoData.cReviewCount = infoSelectResult[0].cReviewCount;
                 infoData.courseIcon = infoSelectResult[0].courseIcon;
 
