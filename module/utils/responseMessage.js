@@ -70,7 +70,7 @@ module.exports = {
     SUCCESS_UNLIKE_PLACE : "장소 좋아요 취소 성공",
 
     /* MYPAGE */
-    SUCCESS_LIST_NOTICE: "서울시 소식 조회 성공",
+    SUCCESS_LIST_NOTICE: "서울시 문화행사 조회 성공",
     SUCCESS_INSERT_NOTICE: "서울시 소식 등록 성공",
     SUCCESS_EDIT_COURSE: "내가 만든 코스 조회성공",
     SUCCESS_LIKE_COURSE: "내가 찜한 코스 조회성공",
