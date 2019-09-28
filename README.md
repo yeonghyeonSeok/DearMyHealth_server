@@ -52,7 +52,7 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 
 
-
+*
 **[PICKPLE의 다른 프로젝트]**
 
 - 안드로이드 https://github.com/mym0404/Pick-Place-Android
