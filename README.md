@@ -13,7 +13,7 @@
 
 ### Server Architecture
 
-**
+***
 
 <img width="948" alt="서버 아키텍처 픽플" src="https://user-images.githubusercontent.com/52193680/65820918-c8cf8f00-e269-11e9-9fa0-f194bd727bbe.png">
 
@@ -21,7 +21,7 @@
 
 ### Tool & Technology
 
-**
+***
 
 - Node.js - Chrome V8 자바스크립트 엔진으로 빌드된 자바스크립트 런타임
 - NPM - 자바 스크립트 패키지 관리자
@@ -37,7 +37,7 @@
 
 ### ERD
 
-**
+***
 
 추가
 
@@ -45,7 +45,7 @@
 
 ### API
 
-**
+***
 
 https://github.com/project-pickple/Pickple_Server/wiki
 
@@ -53,7 +53,7 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 ### Developer
 
-**
+***
 
 **양희연**(hhiyeon)
 
@@ -62,7 +62,7 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 ### PICKPLE의 다른 프로젝트
 
-**
+***
 
 - 안드로이드 
 <https://github.com/mym0404/Pick-Place-Android>
