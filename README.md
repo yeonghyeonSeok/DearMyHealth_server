@@ -11,9 +11,11 @@
 
 추가
 
+
 **[Server Architecture]**
 
 <img width="948" alt="서버 아키텍처 픽플" src="https://user-images.githubusercontent.com/52193680/65820918-c8cf8f00-e269-11e9-9fa0-f194bd727bbe.png">
+
 
 
 **[Tool & Technology]**
@@ -29,14 +31,17 @@
 - Workbench - MySQL database
 
 
+
 **[ERD]**
 
 추가
 
 
+
 **[API]**
 
 https://github.com/project-pickple/Pickple_Server/wiki
+
 
 
 **[Developer]**
@@ -47,7 +52,9 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 
 
+
 **[PICKPLE의 다른 프로젝트]**
 
 - 안드로이드 https://github.com/mym0404/Pick-Place-Android
+
 
