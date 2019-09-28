@@ -1,6 +1,6 @@
 # Pickple_Server
 
-### 픽플레이스
+### Pick Place
 
 ***
 로고 - 추가
@@ -42,6 +42,6 @@
 
 
 
-**[PICKPLE의 다른 프로젝트]**ㅊ
+**[PICKPLE의 다른 프로젝트]**
 추가
 
