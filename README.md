@@ -11,7 +11,8 @@
 추가
 
 **[Server Architecture]**
-추가
+<img width="948" alt="서버 아키텍처 픽플" src="https://user-images.githubusercontent.com/52193680/65820918-c8cf8f00-e269-11e9-9fa0-f194bd727bbe.png">
+
 
 **[Tool & Technology]**
 
