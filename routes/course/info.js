@@ -1,13 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
+const authUtil = require("../../module/utils/authUtils");   // 토큰 있을 때 사용
+
 const defaultRes = require('../../module/utils/utils');
 const statusCode = require('../../module/utils/statusCode');
 const resMessage = require('../../module/utils/responseMessage')
 const db = require('../../module/pool');
 
 // 코스 정보 조회
-router.get('/:courseIdx', async (req, res) => {
+router.get('/:courseIdx', authUtil.isLoggedin, async (req, res) => {
+    const inputUserIdx = req.decoded.userIdx;
     const infoSelectQuery = 'SELECT * FROM course WHERE courseIdx = ?';
 
     const infoSelectResult = await db.queryParam_Arr(infoSelectQuery, [req.params.courseIdx]);
@@ -31,6 +34,7 @@ router.get('/:courseIdx', async (req, res) => {
                 placeIdx: [],
                 tag : [],
                 distance : [],
+                isLiked : 0,
             }
         
             infoData.courseIdx = infoSelectResult[0].courseIdx;
@@ -39,11 +43,19 @@ router.get('/:courseIdx', async (req, res) => {
             infoData.cType = infoSelectResult[0].cType;
             infoData.cDescription = infoSelectResult[0].cDescription;
             infoData.cThumbnail = infoSelectResult[0].cThumbnail;
-            infoData.cLikeCount = infoSelectResult[0].totalHour;
+            infoData.cLikeCount = infoSelectResult[0].cLikeCount;
+            infoData.totalHour = infoSelectResult[0].totalHour;
             infoData.cReviewCount = infoSelectResult[0].cReviewCount;
 
             const infoTagQuery = 'SELECT tagIdx FROM course_tag WHERE courseIdx = ?';
             const infoTagResult = await db.queryParam_Parse(infoTagQuery, [req.params.courseIdx]);
+
+            const likeCourseCheckQuery = 'SELECT * FROM course_like WHERE userIdx = ? AND courseIdx = ?';
+            const likeCourseCheckResult = await db.queryParam_Arr(likeCourseCheckQuery, [inputUserIdx, infoSelectResult[0].courseIdx]);
+
+            if(likeCourseCheckResult.length != 0 ) { //이미 좋아요 된 상태
+                infoData.isLiked = 1;
+            } 
             
             var tagArray = new Array();
             //tagArray.push(infoTagResult[0].tagIdx);
