@@ -1,9 +1,9 @@
 # Pickple_Server
 
-### Pick Place
+### Pickple
 
 ***
-![logo_img](https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg)
+!![logo_img](https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg)
 
 
 
