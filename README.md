@@ -3,14 +3,16 @@
 ### Pick Place
 
 ***
-![logo_img](https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg)
+![logo_img](https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg width="40%")
 
 
 
 **[Work Flow]**
+
 추가
 
 **[Server Architecture]**
+
 <img width="948" alt="서버 아키텍처 픽플" src="https://user-images.githubusercontent.com/52193680/65820918-c8cf8f00-e269-11e9-9fa0-f194bd727bbe.png">
 
 
@@ -28,10 +30,12 @@
 
 
 **[ERD]**
+
 추가
 
 
-**[Wiki]**
+**[API]**
+
 https://github.com/project-pickple/Pickple_Server/wiki
 
 
@@ -44,5 +48,8 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 
 **[PICKPLE의 다른 프로젝트]**
-추가
+
+- 안드로이드
+
+https://github.com/mym0404/Pick-Place-Android
 
