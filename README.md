@@ -32,7 +32,7 @@
 
 
 **[Wiki]**
-추가
+https://github.com/project-pickple/Pickple_Server/wiki
 
 
 **[Developer]**
