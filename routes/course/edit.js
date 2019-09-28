@@ -31,8 +31,8 @@ BODY         : courseName = 코스 이름
 router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (req, res) => {
     const inputUserIdx = req.decoded.userIdx;
 
-    const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, totalHour, courseDate, cDistrict, userIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, req.body.totalHour, moment().format('YYYY-MM-DD HH:mm:ss'), req.body.district, inputUserIdx]);
+    const insertCourseQuery = 'INSERT INTO course (cName, cDescription, cThumbnail, cLikeCount, cType, courseIcon, courseDate, cDistrict, userIdx) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const insertCourseResult = await db.queryParam_Arr(insertCourseQuery, [req.body.courseName, req.body.description, req.file.location, 0, req.body.type, req.body.icon, moment().format('YYYY-MM-DD HH:mm:ss'), req.body.district, inputUserIdx]);
     const inputCourseIdx = insertCourseResult.insertId;
 
     const placeCount = req.body.place.length;
@@ -41,14 +41,6 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
         for(i = 0; i<placeCount; i++) {
             const insertCoursePlaceQuery = 'INSERT INTO course_place (courseIdx, placeIdx) VALUES(?, ?)'
             const insertCoursePlaceResult = await db.queryParam_Arr(insertCoursePlaceQuery, [inputCourseIdx, req.body.place[i]]);
-        }
-    }
-
-    const distanceCount = req.body.distance.length;
-    if(distanceCount > 0) {
-        for(j = 0; j < distanceCount; j++) {
-            const insertDistanceQuery = 'INSERT INTO distance (courseIdx, distance) VALUES (?, ?)'
-            const insertDistanceResult = await db.queryParam_Arr(insertDistanceQuery, [inputCourseIdx, req.body.distance[j]]);
         }
     }
     
