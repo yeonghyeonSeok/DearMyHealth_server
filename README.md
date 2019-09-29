@@ -1,17 +1,19 @@
 # Pickple_Server
 
-### Pickple 
+### Pickple - 픽플레이스
 ‘오래가게 코스’, ‘서울 도보 관광 코스’를 쉽고 간편하게 소개해주는 서비스를 제공하는 'Pickple'
 
 ***
 <img src="https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg" width="60%">
 
-**‘오래가게 코스’, ‘서울 도보 관광 코스’**를 쉽고 간편하게 소개해주는 서비스를 제공하는 **'Pickple'**
+
 
 ### Work Flow
 
 *********
 <img width="730" alt="스크린샷 2019-09-30 오전 1 24 01" src="https://user-images.githubusercontent.com/52193680/65835478-87021f80-e321-11e9-80ab-f458585e3a4b.png">
+
+
 
 ### Server Architecture
 
