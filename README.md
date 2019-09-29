@@ -17,6 +17,7 @@
 
 
 ### Server Architecture
+서버 아키텍쳐
 
 **********
 <img width="948" alt="서버 아키텍처 픽플" src="https://user-images.githubusercontent.com/52193680/65820918-c8cf8f00-e269-11e9-9fa0-f194bd727bbe.png">
@@ -24,6 +25,7 @@
 
 
 ### Tool & Technology
+도구 & 사용기술
 
 **********
 
@@ -40,6 +42,7 @@
 
 
 ### ERD
+Entity Relationship Diagram
 
 **********
 
@@ -47,7 +50,8 @@
 
 
 
-### API - Wiki
+### API
+API 문서 Wiki 작성
 
 ***********
 
@@ -57,6 +61,7 @@ https://github.com/project-pickple/Pickple_Server/wiki
 
 ### Developer
 
+개발자
 ***********
 
 **양희연**(hhiyeon)
