@@ -43,6 +43,14 @@ router.post('/', upload.single('course_thumbnail'), authUtil.isLoggedin, async (
             const insertCoursePlaceResult = await db.queryParam_Arr(insertCoursePlaceQuery, [inputCourseIdx, req.body.place[i]]);
         }
     }
+
+    const distanceCount = req.body.distance.length;
+    if(distanceCount > 0) {
+        for(j = 0; j < distanceCount; j++) {
+            const insertDistanceQuery = 'INSERT INTO distance (courseIdx, distance) VALUES (?, ?)'
+            const insertDistanceResult = await db.queryParam_Arr(insertDistanceQuery, [inputCourseIdx, req.body.distance[j]]);
+        }
+    }
     
     const tagCount = req.body.tag.length;
     //console.log(tagCount);

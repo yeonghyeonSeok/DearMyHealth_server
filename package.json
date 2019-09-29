@@ -6,8 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "aws-sdk": "^2.532.0",
-    "cheerio": "^1.0.0-rc.3",
+
+    "aws-sdk": "^2.538.0",
     "cookie-parser": "~1.4.4",
     "crypto-promise": "^2.1.0",
     "debug": "~2.6.9",
