@@ -8,7 +8,8 @@
 
 
 
-### Work Flow 중 'Home 화면'
+### Work Flow 
+'Home 화면'
 
 *********
 <img width="730" alt="스크린샷 2019-09-30 오전 1 24 01" src="https://user-images.githubusercontent.com/52193680/65835478-87021f80-e321-11e9-80ab-f458585e3a4b.png">
