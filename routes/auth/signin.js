@@ -43,7 +43,7 @@ router.post('/', async (req, res) => {
 
         } else {
             console.log("비밀번호가 일치하지 않음");
-            res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_CORRECT_USERINFO));
+            res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_CORRECT_PW));
         }
     }
 

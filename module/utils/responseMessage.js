@@ -12,6 +12,7 @@ module.exports = {
     ALREADY_EXIST_USER : "이미 존재하는 사용자입니다",
 
     NOT_CORRECT_USERINFO : "일치하는 사용자가 없습니다",
+    NOT_CORRECT_PW : "비밀번호가 일치하지 않습니다",
     SIGNIN_FAIL : "로그인 실패",
     SIGNIN_SUCCESS : "로그인 성공",
 
