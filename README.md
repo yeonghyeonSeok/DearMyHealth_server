@@ -4,7 +4,7 @@
 ‘오래가게 코스’, ‘서울 도보 관광 코스’를 쉽고 간편하게 소개해주는 서비스를 제공하는 'Pickple'
 
 ***
-<img src="https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg" width="60%">
+<img src="https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg" width="40%">
 
 
 ## PickPle Project Repositories
