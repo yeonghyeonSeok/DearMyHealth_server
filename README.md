@@ -7,13 +7,21 @@
 <img src="https://user-images.githubusercontent.com/52193680/65820905-a2115880-e269-11e9-85ad-146601bc21b6.jpg" width="60%">
 
 
+## PickPle Project Repositories
+
+* <a href="https://github.com/mym0404/Pick-Place-Android">Android  ![Progress](http://progressed.io/bar/100)  </a>
+
+Android Studio Client
+
+* <a href="https://github.com/project-pickple/Pickple_Server">Server  ![Progress](http://progressed.io/bar/100)  </a>
+
+Node.js API Server
+
 
 ### Work Flow 
-'Home 화면'
 
 *********
-<img width="730" alt="스크린샷 2019-09-30 오전 1 24 01" src="https://user-images.githubusercontent.com/52193680/65835478-87021f80-e321-11e9-80ab-f458585e3a4b.png">
-
+<img width="1066" alt="스크린샷 2019-09-30 오후 4 48 15" src="https://user-images.githubusercontent.com/52193680/65859002-31218c00-e3a2-11e9-9317-cd62127a6b24.png">
 
 
 ### Server Architecture
