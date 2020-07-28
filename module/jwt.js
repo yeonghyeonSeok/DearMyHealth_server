@@ -1,16 +1,16 @@
 var randtoken = require('rand-token');
 const jwt = require('jsonwebtoken');
-const secretOrPrivateKey = "PicpleKey";
+const secretOrPrivateKey = "DearMyHealthKey";
 const options = {
     algorithm: "HS256",
-    expiresIn: "14d",
-    issuer: "yang"
+    expiresIn: "1d",
+    issuer: "hyeon"
 };
 // 이건 랜덤 하게 나오는 옵션 
 const refreshOptions = {
     algorithm: "HS256",
-    expiresIn: "28d",
-    issuer: "yang"
+    expiresIn: "14d",
+    issuer: "hyeon"
 };
 // 랜덤하게 나오는게 아니라 jwt signin으로 만들때
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
         const payload = {
             userIdx: user.userIdx,
             email: user.email,
-            nickname: user.nickname,
+            name: user.name,
         };
 
         const result = {
@@ -52,7 +52,7 @@ module.exports = {
         const payload = {
             userIdx: user.userIdx,
             email: user.email,
-            nickname: user.nickname,
+            name: user.name
         };
 
         return jwt.sign(payload, secretOrPrivateKey, options);
