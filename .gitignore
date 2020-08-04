@@ -36,6 +36,7 @@ build/Release
 node_modules/
 jspm_packages/
 config/
+routes/auth/info.js
 package-lock.json
 
 # TypeScript v1 declaration files

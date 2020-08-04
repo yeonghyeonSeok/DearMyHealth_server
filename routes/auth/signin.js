@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
 
     if (selectUserResult[0] == null) {//id가 존재하지 않으면
         console.log("id가 존재하지 않음");
-        res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_CORRECT_USERINFO));
+        res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_EXIST_EMAIL));
     } else {
         const salt = selectUserResult[0].salt;
         const hashedEnterPw = await crypto.pbkdf2(req.body.password.toString(), salt, 1000, 32, 'SHA512');
@@ -36,14 +36,14 @@ router.post('/', async (req, res) => {
             const refreshTokenUpdateQuery = "UPDATE user SET refreshToken = ? WHERE email= ?";
             const refreshTokenUpdateResult = await db.queryParam_Parse(refreshTokenUpdateQuery, [refreshToken, req.body.email]);
             if (!refreshTokenUpdateResult) {
-                res.status(200).send(defaultRes.successFalse(statusCode.OK, "refreshtoken DB등록 오류 "));
+                res.status(200).send(defaultRes.successFalse(statusCode.OK, ERROR_SAVE_REFRESHTOKEN));
             } else {
-                res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SIGNIN_SUCCESS, tokens));
+                res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SUCCESS_SIGNIN, tokens));
             }
 
         } else {
             console.log("비밀번호가 일치하지 않음");
-            res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_CORRECT_PW));
+            res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.NOT_CORRECT_PASSWORD));
         }
     }
 
